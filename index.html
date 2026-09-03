@@ -1,4 +1,4 @@
-<title>7mm Rem Mag Dope Card</title>
+<title>Moose Rifle Dope Card</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap">
@@ -40,6 +40,7 @@ button,input,select{font:inherit;color:inherit}
 .topbar{border-bottom:1px solid var(--line);background:var(--surface);padding:13px clamp(14px,3vw,30px);display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 16px}
 .topbar h1{font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.03em}
 .topbar h1 span{color:var(--brass)}
+.topbar h1 #cartTitle{color:var(--ink)}
 .topbar .sub{color:var(--ink-2);font-size:13.5px}
 
 .wrap{max-width:1180px;margin:0 auto;padding:clamp(14px,2.2vw,24px) clamp(14px,3vw,30px) 52px;display:flex;flex-direction:column;gap:16px}
@@ -50,8 +51,9 @@ button,input,select{font:inherit;color:inherit}
 .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);display:block}
 
 /* ---- setup bar ---- */
-.setup{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1.5fr) minmax(0,1fr);gap:16px;padding:15px}
-@media (max-width:860px){ .setup{grid-template-columns:1fr} }
+.setup{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,2fr) minmax(0,1.6fr) minmax(0,1.15fr);gap:16px;padding:15px}
+@media (max-width:1080px){ .setup{grid-template-columns:1fr 1fr} }
+@media (max-width:700px){ .setup{grid-template-columns:1fr} }
 .fld{display:flex;flex-direction:column;gap:6px;min-width:0}
 select.box,input.box{background:var(--surface-2);border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-size:14.5px;width:100%;font-family:var(--sans)}
 select.box{cursor:pointer}
@@ -145,14 +147,20 @@ footer b{color:var(--ink-2);font-weight:600}
 </style>
 
 <header class="topbar">
-  <h1>7mm Rem Mag <span>Holdover</span></h1>
-  <p class="sub">Pick your load, pick your zero, read the hold at any range to 500.</p>
+  <h1><span id="cartTitle">7mm Rem Mag</span> <span>Holdover</span></h1>
+  <p class="sub">Pick your rifle and load, pick your zero, read the hold at any range to 500.</p>
 </header>
 
 <main class="wrap">
 
   <section class="panel">
     <div class="setup">
+      <div class="fld">
+        <label class="lbl" for="cartSel">Rifle</label>
+        <select id="cartSel" class="box"></select>
+        <p class="hint" id="cartHint">Flat, fast, reaches out.</p>
+      </div>
+
       <div class="fld">
         <label class="lbl" for="loadSel">Ammunition</label>
         <select id="loadSel" class="box"></select>
@@ -266,7 +274,7 @@ footer b{color:var(--ink-2);font-weight:600}
 
   <section class="panel">
     <div class="panel-head">
-      <h2>Every load at <span id="cmpRangeLbl">300</span> yd</h2>
+      <h2><span id="cmpCartLbl">7mm Rem Mag</span> loads at <span id="cmpRangeLbl">300</span> yd</h2>
       <span class="lbl">click a row to select it</span>
     </div>
     <div class="tablescroll">
@@ -293,7 +301,11 @@ footer b{color:var(--ink-2);font-weight:600}
   <h2>About these numbers</h2>
   <p><b>Conditions are fixed at standard sea-level air</b> — the same basis every manufacturer uses to print the numbers on the box, so this chart matches your ammo’s published data. That is a deliberate simplification and it costs you almost nothing: at Stonewall’s elevation on a 5 °C October morning, air density shifts the 500 yd impact by less than a tenth of an inch. Cold powder is the only ambient effect that shows up at all, and it is about 1 in at 500 yd near freezing, 3 in at −15 °C.</p>
   <p><b>Muzzle velocity is the number that actually matters.</b> Every load here uses the maker’s published figure from a 24 in test barrel, and real rifles routinely run 50–100 fps off it. At 500 yd, 50 fps is worth about 1.5 in of impact — an order of magnitude more than every weather effect combined. If you ever chronograph this rifle, tell me the number and I will set it as the default for your load — it is worth more than every other input here combined.</p>
+  <p><b>The two cartridges are not interchangeable at distance.</b> With a 200 yd zero, a 162 gr ELD-X out of the 7mm asks for 18.5 in of hold at 400 yd and still carries 2006 ft·lb. A 180 gr Core-Lokt out of the .30-06 asks for 26.6 in and is down to 1342 ft·lb — under the moose energy floor before 350 yd. The .30-06 is an excellent moose cartridge, but it is a shorter-range one with standard cup-and-core loads. Pick a premium 180 gr bonded or monolithic and it stretches out considerably.</p>
+
   <p><b>No wind is modelled here.</b> You asked for impact and hold heights, so the chart is vertical only. For reference, a 10 mph full-value crosswind pushes a 162 gr ELD-X about 4.5 in at 300 yd and 13 in at 500 — worth knowing on open Manitoba country, and I can add a wind slider back any time.</p>
+  <p><b>High-BC bullets may read slightly optimistic past 300 yd.</b> Loads with plain cup-and-core bullets match their published tables here to within about 18 fps at 500 yd. The premium high-BC bullets — ELD-X, Terminal Ascent, Elite Hunter, AccuBond Long Range — come out 50–140 fps faster than the maker's own table, and the gap scales with the advertised ballistic coefficient rather than with anything in the solver. That is the well-known tendency for advertised BCs on hunting bullets to run ahead of measured ones. Practically it means a couple of inches less holdover than reality at 400–500 yd on those loads, and nothing you would notice inside 300.</p>
+
   <p><b>Verify on paper.</b> This is a point-mass solver using standard G1 drag functions, validated against published factory tables to within 2–18 fps of retained velocity at 500 yd. It does not model spin drift or uphill/downhill shot angle. Confirm the hold at the ranges you actually intend to shoot before you rely on it on an animal.</p>
 </footer>
 
@@ -461,43 +473,90 @@ function mpbr(base, radius){
    AMMUNITION — manufacturer-published velocity (24 in) and BC
    vexp = approximate minimum impact velocity for reliable expansion
    ============================================================ */
+const CARTRIDGES = [
+ {id:"7mmrm", name:"7mm Rem Mag",        short:"7mm Rem Mag", blurb:"Flat, fast, reaches out."},
+ {id:"3006",  name:".30-06 Springfield", short:".30-06",      blurb:"Heavier bullets, more arc."}
+];
+
 const LOADS = [
- {id:"hdy-ph-162",  brand:"Hornady",   line:"Precision Hunter",   bullet:"ELD-X",              gr:162, mv:2940, g1:.631, g7:.315, vexp:1600, cls:"Controlled expansion"},
- {id:"hdy-sf-139",  brand:"Hornady",   line:"Superformance",      bullet:"SST",                gr:139, mv:3240, g1:.486, vexp:1800, cls:"Polymer tip"},
- {id:"hdy-sf-154",  brand:"Hornady",   line:"Superformance",      bullet:"SST",                gr:154, mv:3100, g1:.525, vexp:1800, cls:"Polymer tip"},
- {id:"hdy-sf-162",  brand:"Hornady",   line:"Superformance",      bullet:"SST",                gr:162, mv:3030, g1:.550, vexp:1800, cls:"Polymer tip"},
- {id:"hdy-out-150", brand:"Hornady",   line:"Outfitter",          bullet:"CX",                 gr:150, mv:3110, g1:.485, g7:.243, vexp:2000, cls:"Monolithic copper"},
- {id:"hdy-aw-139",  brand:"Hornady",   line:"American Whitetail", bullet:"InterLock BTSP",     gr:139, mv:3150, g1:.392, vexp:1800, cls:"Cup and core"},
- {id:"hdy-cus-154", brand:"Hornady",   line:"Custom",             bullet:"InterLock SP",       gr:154, mv:3035, g1:.433, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"hdy-ph-162",  brand:"Hornady",   line:"Precision Hunter",   bullet:"ELD-X",              gr:162, mv:2940, g1:.631, g7:.315, vexp:1600, cls:"Controlled expansion"},
+ {cart:"7mmrm", id:"hdy-sf-139",  brand:"Hornady",   line:"Superformance",      bullet:"SST",                gr:139, mv:3240, g1:.486, vexp:1800, cls:"Polymer tip"},
+ {cart:"7mmrm", id:"hdy-sf-154",  brand:"Hornady",   line:"Superformance",      bullet:"SST",                gr:154, mv:3100, g1:.525, vexp:1800, cls:"Polymer tip"},
+ {cart:"7mmrm", id:"hdy-sf-162",  brand:"Hornady",   line:"Superformance",      bullet:"SST",                gr:162, mv:3030, g1:.550, vexp:1800, cls:"Polymer tip"},
+ {cart:"7mmrm", id:"hdy-out-150", brand:"Hornady",   line:"Outfitter",          bullet:"CX",                 gr:150, mv:3110, g1:.485, g7:.243, vexp:2000, cls:"Monolithic copper"},
+ {cart:"7mmrm", id:"hdy-aw-139",  brand:"Hornady",   line:"American Whitetail", bullet:"InterLock BTSP",     gr:139, mv:3150, g1:.392, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"hdy-cus-154", brand:"Hornady",   line:"Custom",             bullet:"InterLock SP",       gr:154, mv:3035, g1:.433, vexp:1800, cls:"Cup and core"},
 
- {id:"fed-ta-155",  brand:"Federal",   line:"Terminal Ascent",    bullet:"Terminal Ascent",    gr:155, mv:3000, g1:.586, g7:.295, vexp:1600, cls:"Bonded, slipstream tip"},
- {id:"fed-np-160",  brand:"Federal",   line:"Premium",            bullet:"Nosler Partition",   gr:160, mv:2950, g1:.475, vexp:1800, cls:"Partition"},
- {id:"fed-tbt-160", brand:"Federal",   line:"Premium",            bullet:"Trophy Bonded Tip",  gr:160, mv:2950, g1:.508, vexp:1600, cls:"Bonded"},
- {id:"fed-tsx-140", brand:"Federal",   line:"Premium",            bullet:"Barnes TSX",         gr:140, mv:3150, g1:.412, vexp:2000, cls:"Monolithic copper"},
- {id:"fed-ps-150",  brand:"Federal",   line:"Power-Shok",         bullet:"Soft Point",         gr:150, mv:3110, g1:.386, vexp:1800, cls:"Cup and core"},
- {id:"fed-ps-175",  brand:"Federal",   line:"Power-Shok",         bullet:"Soft Point",         gr:175, mv:2860, g1:.462, vexp:1800, cls:"Cup and core"},
- {id:"fed-fus-150", brand:"Federal",   line:"Fusion",             bullet:"Fusion",             gr:150, mv:3110, g1:.400, vexp:1600, cls:"Bonded"},
+ {cart:"7mmrm", id:"fed-ta-155",  brand:"Federal",   line:"Terminal Ascent",    bullet:"Terminal Ascent",    gr:155, mv:3000, g1:.586, g7:.295, vexp:1600, cls:"Bonded, slipstream tip"},
+ {cart:"7mmrm", id:"fed-np-160",  brand:"Federal",   line:"Premium",            bullet:"Nosler Partition",   gr:160, mv:2950, g1:.475, vexp:1800, cls:"Partition"},
+ {cart:"7mmrm", id:"fed-tbt-160", brand:"Federal",   line:"Premium",            bullet:"Trophy Bonded Tip",  gr:160, mv:2950, g1:.508, vexp:1600, cls:"Bonded"},
+ {cart:"7mmrm", id:"fed-tsx-140", brand:"Federal",   line:"Premium",            bullet:"Barnes TSX",         gr:140, mv:3150, g1:.412, vexp:2000, cls:"Monolithic copper"},
+ {cart:"7mmrm", id:"fed-ps-150",  brand:"Federal",   line:"Power-Shok",         bullet:"Soft Point",         gr:150, mv:3110, g1:.386, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"fed-ps-175",  brand:"Federal",   line:"Power-Shok",         bullet:"Soft Point",         gr:175, mv:2860, g1:.462, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"fed-fus-150", brand:"Federal",   line:"Fusion",             bullet:"Fusion",             gr:150, mv:3110, g1:.400, vexp:1600, cls:"Bonded"},
 
- {id:"rem-cl-150",  brand:"Remington", line:"Core-Lokt",          bullet:"Pointed Soft Point", gr:150, mv:3110, g1:.384, vexp:1800, cls:"Cup and core"},
- {id:"rem-cl-175",  brand:"Remington", line:"Core-Lokt",          bullet:"Pointed Soft Point", gr:175, mv:2860, g1:.435, vexp:1800, cls:"Cup and core"},
- {id:"rem-clt-150", brand:"Remington", line:"Core-Lokt Tipped",   bullet:"Tipped Soft Point",  gr:150, mv:3110, g1:.452, vexp:1800, cls:"Cup and core"},
- {id:"rem-at-140",  brand:"Remington", line:"Premier",            bullet:"AccuTip BT",         gr:140, mv:3175, g1:.485, vexp:1800, cls:"Polymer tip"},
+ {cart:"7mmrm", id:"rem-cl-150",  brand:"Remington", line:"Core-Lokt",          bullet:"Pointed Soft Point", gr:150, mv:3110, g1:.384, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"rem-cl-175",  brand:"Remington", line:"Core-Lokt",          bullet:"Pointed Soft Point", gr:175, mv:2860, g1:.435, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"rem-clt-150", brand:"Remington", line:"Core-Lokt Tipped",   bullet:"Tipped Soft Point",  gr:150, mv:3110, g1:.452, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"rem-at-140",  brand:"Remington", line:"Premier",            bullet:"AccuTip BT",         gr:140, mv:3175, g1:.485, vexp:1800, cls:"Polymer tip"},
 
- {id:"win-pp-150",  brand:"Winchester",line:"Super-X Power-Point", bullet:"Power-Point",       gr:150, mv:3090, g1:.372, vexp:1800, cls:"Cup and core"},
- {id:"win-dsx-140", brand:"Winchester",line:"Deer Season XP",     bullet:"Extreme Point",      gr:140, mv:3200, g1:.411, vexp:1800, cls:"Polymer tip"},
- {id:"win-ebg-160", brand:"Winchester",line:"Expedition Big Game",bullet:"Nosler AccuBond",    gr:160, mv:2950, g1:.531, vexp:1600, cls:"Bonded"},
- {id:"win-bst-140", brand:"Winchester",line:"Ballistic Silvertip",bullet:"Ballistic Silvertip",gr:140, mv:3100, g1:.485, vexp:1800, cls:"Polymer tip"},
- {id:"win-pmb-150", brand:"Winchester",line:"Power Max Bonded",   bullet:"Protected HP",       gr:150, mv:3090, g1:.385, vexp:1600, cls:"Bonded"},
+ {cart:"7mmrm", id:"win-pp-150",  brand:"Winchester",line:"Super-X Power-Point", bullet:"Power-Point",       gr:150, mv:3090, g1:.372, vexp:1800, cls:"Cup and core"},
+ {cart:"7mmrm", id:"win-dsx-140", brand:"Winchester",line:"Deer Season XP",     bullet:"Extreme Point",      gr:140, mv:3200, g1:.411, vexp:1800, cls:"Polymer tip"},
+ {cart:"7mmrm", id:"win-ebg-160", brand:"Winchester",line:"Expedition Big Game",bullet:"Nosler AccuBond",    gr:160, mv:2950, g1:.531, vexp:1600, cls:"Bonded"},
+ {cart:"7mmrm", id:"win-bst-140", brand:"Winchester",line:"Ballistic Silvertip",bullet:"Ballistic Silvertip",gr:140, mv:3100, g1:.485, vexp:1800, cls:"Polymer tip"},
+ {cart:"7mmrm", id:"win-pmb-150", brand:"Winchester",line:"Power Max Bonded",   bullet:"Protected HP",       gr:150, mv:3090, g1:.385, vexp:1600, cls:"Bonded"},
 
- {id:"nos-tg-160",  brand:"Nosler",    line:"Trophy Grade",       bullet:"AccuBond",           gr:160, mv:2950, g1:.531, vexp:1600, cls:"Bonded"},
- {id:"nos-lr-168",  brand:"Nosler",    line:"Trophy Grade LR",    bullet:"AccuBond Long Range",gr:168, mv:2950, g1:.631, g7:.323, vexp:1600, cls:"Bonded, high BC"},
- {id:"nos-et-150",  brand:"Nosler",    line:"Trophy Grade",       bullet:"E-Tip",              gr:150, mv:3000, g1:.467, vexp:2000, cls:"Monolithic copper"},
+ {cart:"7mmrm", id:"nos-tg-160",  brand:"Nosler",    line:"Trophy Grade",       bullet:"AccuBond",           gr:160, mv:2950, g1:.531, vexp:1600, cls:"Bonded"},
+ {cart:"7mmrm", id:"nos-lr-168",  brand:"Nosler",    line:"Trophy Grade LR",    bullet:"AccuBond Long Range",gr:168, mv:2950, g1:.631, g7:.323, vexp:1600, cls:"Bonded, high BC"},
+ {cart:"7mmrm", id:"nos-et-150",  brand:"Nosler",    line:"Trophy Grade",       bullet:"E-Tip",              gr:150, mv:3000, g1:.467, vexp:2000, cls:"Monolithic copper"},
 
- {id:"bar-vt-140",  brand:"Barnes",    line:"VOR-TX",             bullet:"TTSX BT",            gr:140, mv:3150, g1:.412, vexp:2000, cls:"Monolithic copper"},
- {id:"bar-vt-150",  brand:"Barnes",    line:"VOR-TX",             bullet:"TSX BT",             gr:150, mv:3100, g1:.420, vexp:2000, cls:"Monolithic copper"},
- {id:"bar-lr-145",  brand:"Barnes",    line:"VOR-TX LR",          bullet:"LRX BT",             gr:145, mv:3080, g1:.486, g7:.243, vexp:1800, cls:"Monolithic, long range"},
+ {cart:"7mmrm", id:"bar-vt-140",  brand:"Barnes",    line:"VOR-TX",             bullet:"TTSX BT",            gr:140, mv:3150, g1:.412, vexp:2000, cls:"Monolithic copper"},
+ {cart:"7mmrm", id:"bar-vt-150",  brand:"Barnes",    line:"VOR-TX",             bullet:"TSX BT",             gr:150, mv:3100, g1:.420, vexp:2000, cls:"Monolithic copper"},
+ {cart:"7mmrm", id:"bar-lr-145",  brand:"Barnes",    line:"VOR-TX LR",          bullet:"LRX BT",             gr:145, mv:3080, g1:.486, g7:.243, vexp:1800, cls:"Monolithic, long range"},
 
- {id:"ber-eh-168",  brand:"Berger",    line:"Elite Hunter",       bullet:"Elite Hunter VLD",   gr:168, mv:2900, g1:.617, g7:.316, vexp:1800, cls:"Match-style hunting"}
+ {cart:"7mmrm", id:"ber-eh-168",  brand:"Berger",    line:"Elite Hunter",       bullet:"Elite Hunter VLD",   gr:168, mv:2900, g1:.617, g7:.316, vexp:1800, cls:"Match-style hunting"},
+
+ // ---- .30-06 Springfield · published 24 in test-barrel data ----
+ {cart:"3006", id:"hdy-ph-178-06",  brand:"Hornady",   line:"Precision Hunter",    bullet:"ELD-X",             gr:178, mv:2750, g1:.552, g7:.278, vexp:1600, cls:"Controlled expansion"},
+ {cart:"3006", id:"hdy-sf-150-06",  brand:"Hornady",   line:"Superformance",       bullet:"SST",               gr:150, mv:3080, g1:.415, vexp:1800, cls:"Polymer tip"},
+ {cart:"3006", id:"hdy-sf-165-06",  brand:"Hornady",   line:"Superformance",       bullet:"SST",               gr:165, mv:2960, g1:.447, vexp:1800, cls:"Polymer tip"},
+ {cart:"3006", id:"hdy-sf-180-06",  brand:"Hornady",   line:"Superformance",       bullet:"SST",               gr:180, mv:2820, g1:.480, vexp:1800, cls:"Polymer tip"},
+ {cart:"3006", id:"hdy-out-180-06", brand:"Hornady",   line:"Outfitter",           bullet:"CX",                gr:180, mv:2750, g1:.501, vexp:2000, cls:"Monolithic copper"},
+ {cart:"3006", id:"hdy-aw-150-06",  brand:"Hornady",   line:"American Whitetail",  bullet:"InterLock SP",      gr:150, mv:2910, g1:.338, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"hdy-aw-180-06",  brand:"Hornady",   line:"American Whitetail",  bullet:"InterLock SP",      gr:180, mv:2700, g1:.425, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"hdy-cus-165-06", brand:"Hornady",   line:"Custom",              bullet:"InterLock BTSP",    gr:165, mv:2800, g1:.435, vexp:1800, cls:"Cup and core"},
+
+ {cart:"3006", id:"fed-ta-175-06",  brand:"Federal",   line:"Terminal Ascent",     bullet:"Terminal Ascent",   gr:175, mv:2730, g1:.520, g7:.261, vexp:1600, cls:"Bonded, slipstream tip"},
+ {cart:"3006", id:"fed-np-180-06",  brand:"Federal",   line:"Premium",             bullet:"Nosler Partition",  gr:180, mv:2700, g1:.474, vexp:1800, cls:"Partition"},
+ {cart:"3006", id:"fed-tbt-180-06", brand:"Federal",   line:"Premium",             bullet:"Trophy Bonded Tip", gr:180, mv:2700, g1:.500, vexp:1600, cls:"Bonded"},
+ {cart:"3006", id:"fed-tsx-168-06", brand:"Federal",   line:"Premium",             bullet:"Barnes TSX",        gr:168, mv:2800, g1:.470, vexp:2000, cls:"Monolithic copper"},
+ {cart:"3006", id:"fed-tc-165-06",  brand:"Federal",   line:"Vital-Shok",          bullet:"Trophy Copper",     gr:165, mv:2800, g1:.450, vexp:2000, cls:"Monolithic copper"},
+ {cart:"3006", id:"fed-ps-150-06",  brand:"Federal",   line:"Power-Shok",          bullet:"Soft Point",        gr:150, mv:2910, g1:.314, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"fed-ps-180-06",  brand:"Federal",   line:"Power-Shok",          bullet:"Soft Point",        gr:180, mv:2700, g1:.383, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"fed-ps-220-06",  brand:"Federal",   line:"Power-Shok",          bullet:"Round Nose SP",     gr:220, mv:2410, g1:.294, vexp:1700, cls:"Cup and core, bush load"},
+ {cart:"3006", id:"fed-fus-165-06", brand:"Federal",   line:"Fusion",              bullet:"Fusion",            gr:165, mv:2800, g1:.400, vexp:1600, cls:"Bonded"},
+
+ {cart:"3006", id:"rem-cl-150-06",  brand:"Remington", line:"Core-Lokt",           bullet:"Pointed Soft Point",gr:150, mv:2910, g1:.314, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"rem-cl-165-06",  brand:"Remington", line:"Core-Lokt",           bullet:"Pointed Soft Point",gr:165, mv:2800, g1:.380, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"rem-cl-180-06",  brand:"Remington", line:"Core-Lokt",           bullet:"Pointed Soft Point",gr:180, mv:2700, g1:.383, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"rem-cl-220-06",  brand:"Remington", line:"Core-Lokt",           bullet:"Round Nose SP",     gr:220, mv:2410, g1:.294, vexp:1700, cls:"Cup and core, bush load"},
+ {cart:"3006", id:"rem-clt-165-06", brand:"Remington", line:"Core-Lokt Tipped",    bullet:"Tipped Soft Point", gr:165, mv:2800, g1:.450, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"rem-at-180-06",  brand:"Remington", line:"Premier",             bullet:"AccuTip BT",        gr:180, mv:2700, g1:.507, vexp:1800, cls:"Polymer tip"},
+
+ {cart:"3006", id:"win-pp-150-06",  brand:"Winchester",line:"Super-X Power-Point", bullet:"Power-Point",       gr:150, mv:2920, g1:.294, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"win-pp-180-06",  brand:"Winchester",line:"Super-X Power-Point", bullet:"Power-Point",       gr:180, mv:2700, g1:.361, vexp:1800, cls:"Cup and core"},
+ {cart:"3006", id:"win-dsx-150-06", brand:"Winchester",line:"Deer Season XP",      bullet:"Extreme Point",     gr:150, mv:2920, g1:.392, vexp:1800, cls:"Polymer tip"},
+ {cart:"3006", id:"win-bst-168-06", brand:"Winchester",line:"Ballistic Silvertip", bullet:"Ballistic Silvertip",gr:168,mv:2790, g1:.470, vexp:1800, cls:"Polymer tip"},
+ {cart:"3006", id:"win-ebg-180-06", brand:"Winchester",line:"Expedition Big Game", bullet:"Nosler AccuBond",   gr:180, mv:2750, g1:.507, vexp:1600, cls:"Bonded"},
+
+ {cart:"3006", id:"nos-tg-180-06",  brand:"Nosler",    line:"Trophy Grade",        bullet:"AccuBond",          gr:180, mv:2750, g1:.507, vexp:1600, cls:"Bonded"},
+ {cart:"3006", id:"nos-et-168-06",  brand:"Nosler",    line:"Trophy Grade",        bullet:"E-Tip",             gr:168, mv:2800, g1:.440, vexp:2000, cls:"Monolithic copper"},
+
+ {cart:"3006", id:"bar-vt-150-06",  brand:"Barnes",    line:"VOR-TX",              bullet:"TTSX BT",           gr:150, mv:2900, g1:.409, vexp:2000, cls:"Monolithic copper"},
+ {cart:"3006", id:"bar-vt-168-06",  brand:"Barnes",    line:"VOR-TX",              bullet:"TTSX BT",           gr:168, mv:2700, g1:.470, vexp:2000, cls:"Monolithic copper"},
+ {cart:"3006", id:"bar-vt-180-06",  brand:"Barnes",    line:"VOR-TX",              bullet:"TTSX BT",           gr:180, mv:2650, g1:.484, vexp:2000, cls:"Monolithic copper"},
+
+ {cart:"3006", id:"ber-eh-185-06",  brand:"Berger",    line:"Elite Hunter",        bullet:"Elite Hunter VLD",  gr:185, mv:2700, g1:.552, g7:.283, vexp:1800, cls:"Match-style hunting"}
 ];
 
 /* ============================================================
@@ -506,8 +565,9 @@ const LOADS = [
 const $ = id => document.getElementById(id);
 const CLICK = 0.25, VITAL = 18, MAXR = 500;
 
-const state = { loadId:"hdy-ph-162", range:300, zero:200, scopeHeight:1.75, sort:"hold", sortDir:1 };
-const STORE = "7mmrm-hold-v2";
+const state = { cart:"7mmrm", loadId:"hdy-ph-162", range:300, zero:200, scopeHeight:1.75, sort:"hold", sortDir:1,
+                lastLoad:{} };   // lastLoad remembers the pick per cartridge
+const STORE = "rifle-hold-v3";
 try{ const s = JSON.parse(localStorage.getItem(STORE) || "null"); if(s) Object.assign(state, s); }catch(e){}
 const save = () => { try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){} };
 
@@ -519,6 +579,8 @@ const ENV = () => ({
 });
 
 let bases = new Map(), cur = null, curTan = 0;
+const inCart = () => LOADS.filter(l => l.cart === state.cart);
+const cartOf = id => CARTRIDGES.find(c => c.id === id);
 function solveAll(){
   const e = ENV();
   bases = new Map();
@@ -713,7 +775,7 @@ function renderDope(){
 
 function renderCompare(){
   const yd=state.range;
-  const rows=LOADS.map(l=>{
+  const rows=inCart().map(l=>{
     const b=bases.get(l.id), t=tanForZero(b,state.zero), drop=pathAt(b,yd,t);
     return {l,drop,hold:-drop,moa:moaFor(drop,yd),vel:b.vel[yd],energy:b.energy[yd],
             ethical:b.ethical,bc:bcOf(l),name:l.brand+" "+l.line,gr:l.gr,mv:l.mv};
@@ -761,16 +823,37 @@ function buildTicks(){
   $("ticks").innerHTML=th; $("tickLabels").innerHTML=tl;
 }
 
-function buildLoadSelect(){
-  const sel=$("loadSel");
-  const brands=[...new Set(LOADS.map(l=>l.brand))];
-  sel.innerHTML=brands.map(b=>
-    `<optgroup label="${b}">`+LOADS.filter(l=>l.brand===b).map(l=>
-      `<option value="${l.id}">${l.gr} gr ${l.bullet} — ${l.line} · ${l.mv} fps</option>`
-    ).join("")+`</optgroup>`).join("");
-  sel.value=state.loadId;
+function buildCartSelect(){
+  $("cartSel").innerHTML=CARTRIDGES.map(c=>`<option value="${c.id}">${c.name}</option>`).join("");
+  $("cartSel").value=state.cart;
 }
 
+function buildLoadSelect(){
+  const sel=$("loadSel"), mine=inCart();
+  const brands=[...new Set(mine.map(l=>l.brand))];
+  sel.innerHTML=brands.map(b=>
+    `<optgroup label="${b}">`+mine.filter(l=>l.brand===b).map(l=>
+      `<option value="${l.id}">${l.gr} gr ${l.bullet} — ${l.line}</option>`
+    ).join("")+`</optgroup>`).join("");
+  if(!mine.some(l=>l.id===state.loadId)) selectLoad(mine[0].id);
+  sel.value=state.loadId;
+  const c=cartOf(state.cart);
+  $("cartHint").textContent=c.blurb;
+  $("cartTitle").textContent=c.name;
+  $("cmpCartLbl").textContent=c.short;
+}
+
+/* Switching cartridge restores whatever load was last used with it. */
+function selectCartridge(id){
+  state.lastLoad[state.cart]=state.loadId;
+  state.cart=id;
+  const mine=inCart();
+  const want=state.lastLoad[id];
+  selectLoad(mine.some(l=>l.id===want) ? want : mine[0].id);
+  buildLoadSelect();
+}
+
+$("cartSel").addEventListener("change",e=>{ selectCartridge(e.target.value); save(); renderAll(); });
 $("loadSel").addEventListener("change",e=>{ selectLoad(e.target.value); save(); renderAll(); });
 $("rangeSlider").addEventListener("input",e=>{ state.range=+e.target.value; save(); renderAll(); });
 $("zeroRange").addEventListener("input",e=>{ state.zero=+e.target.value; save(); renderAll(); });
@@ -795,9 +878,12 @@ $("cmpTable").querySelectorAll("th.sortable").forEach(th=>th.addEventListener("c
 }));
 
 /* boot */
-if(!LOADS.some(l=>l.id===state.loadId)) state.loadId="hdy-ph-162";
+if(!CARTRIDGES.some(c=>c.id===state.cart)) state.cart="7mmrm";
+if(!state.lastLoad || typeof state.lastLoad!=="object") state.lastLoad={};
+if(!inCart().some(l=>l.id===state.loadId)) state.loadId=inCart()[0].id;
 state.range=Math.max(0,Math.min(MAXR,state.range));
 state.zero=Math.max(50,Math.min(400,state.zero));
+buildCartSelect();
 buildLoadSelect();
 buildTicks();
 $("rangeSlider").value=state.range;

@@ -1,14 +1,17 @@
-# 7mm Rem Mag Dope Card
+# Moose Rifle Dope Card
 
-An interactive holdover chart for sighting in a 7mm Remington Magnum for moose.
+An interactive holdover chart for sighting in a moose rifle — 7mm Remington Magnum
+or .30-06 Springfield.
 Single self-contained `index.html` — no build step, no dependencies.
 
-Pick your load from the dropdown, pick your zero, and read the point of impact and
+Pick your rifle, pick your load, pick your zero, and read the point of impact and
 required hold at any range from the muzzle to 500 yards.
 
 ## What it does
 
-- **30 popular factory loads**, 139–175 gr, in one dropdown grouped by brand.
+- **Two cartridges**, selected at the top: 7mm Rem Mag (30 loads, 139–175 gr) and
+  .30-06 Springfield (34 loads, 150–220 gr). The ammunition dropdown filters to the
+  selected rifle and remembers the load you last used with each.
 - **Zero range 50–400 yd**, on a slider with common presets and a "best all-round"
   button that picks the max-point-blank zero for an 18 in vital zone.
 - **Point-of-impact chart, 0–500 yd**, with the hold needed printed under the axis
@@ -30,7 +33,9 @@ applied as a launch-angle offset, which keeps the zero and range sliders instant
 
 | Check | Result |
 |---|---|
-| Retained velocity vs. published tables (Barnes 140 TTSX, Remington 150 Core-Lokt, Federal 160 Partition) | within 2–18 fps to 500 yd |
+| Retained velocity vs. published tables, cup-and-core loads, both cartridges | within 2–18 fps to 500 yd |
+| Retained velocity, premium high-BC bullets (ELD-X, Terminal Ascent, Elite Hunter) | 50–140 fps optimistic; error scales with advertised BC, not with the solver |
+| G1 vs. G7 drag model on bullets publishing both | agree within 3 fps at 500 yd |
 | Muzzle energy, 162 gr @ 2940 fps | 3109 ft·lb vs. 3110 published |
 | 10 mph full-value crosswind, 162 ELD-X | 4.6 in @ 300 yd, 13.4 in @ 500 yd vs. ~4.6 / ~13.9 published |
 | Density ratio at ICAO standard | 1.0000 |
@@ -58,3 +63,15 @@ Published velocities come from 24 in test barrels; real rifles routinely run 50�
 fps off them, which matters more than every weather effect combined. No wind, spin
 drift, or shot angle is modelled. Confirm the hold on paper at the ranges you intend
 to shoot.
+
+## A note on advertised ballistic coefficients
+
+Cup-and-core loads match their published tables here to within about 18 fps at 500 yd.
+Premium high-BC bullets come out 50–140 fps *faster* than the maker's own table, and
+the gap scales with the advertised BC rather than with anything in the solver — three
+cup-and-core loads across both cartridges match tightly, which rules out a systematic
+solver bias. Switching those bullets to their published G7 coefficients moves the
+answer by under 3 fps, so the drag model is not the cause either. This is the familiar
+tendency for advertised hunting-bullet BCs to run ahead of measured ones. In practice
+it means a couple of inches less holdover than reality at 400–500 yd on those loads,
+and nothing noticeable inside 300.
