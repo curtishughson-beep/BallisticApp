@@ -1,3 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Moose Rifle Dope Card</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dope Card">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EAEBE5">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1A201D">
+<meta name="description" content="Holdover and point-of-impact chart for 7mm Rem Mag and .30-06 Springfield.">
+<style>
+  html{color-scheme:light dark}
+  body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+  /* keep content clear of the notch when installed full screen */
+  .topbar{padding-top:calc(13px + env(safe-area-inset-top))}
+  .wrap{padding-bottom:calc(52px + env(safe-area-inset-bottom))}
+</style>
+</head>
+<body>
 <title>Moose Rifle Dope Card</title>
 <style>
 /* Fonts are embedded so the app renders correctly with no network at all. */
@@ -913,3 +940,16 @@ window.addEventListener("resize",()=>renderChart(null));
 
 })();
 </script>
+
+<script>
+/* Register the offline worker. isSecureContext covers https and localhost;
+   on file:// or where the host forbids it this silently does nothing, and the
+   page is fully self-contained either way. */
+if ("serviceWorker" in navigator && window.isSecureContext) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./sw.js").catch(function () {});
+  });
+}
+</script>
+</body>
+</html>

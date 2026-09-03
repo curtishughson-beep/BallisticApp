@@ -2,7 +2,9 @@
 
 An interactive holdover chart for sighting in a moose rifle — 7mm Remington Magnum
 or .30-06 Springfield.
-Single self-contained `index.html` — no build step, no dependencies.
+Single self-contained `index.html` — no build step, no dependencies, and no network
+calls at all. Fonts are embedded, so it renders correctly with the phone in airplane
+mode or 60 km down a cutline with no bars.
 
 Pick your rifle, pick your load, pick your zero, and read the point of impact and
 required hold at any range from the muzzle to 500 yards.
@@ -21,6 +23,49 @@ required hold at any range from the muzzle to 500 yards.
 
 Conditions are deliberately fixed at ICAO standard sea-level air — the basis every
 manufacturer uses for the numbers on the box, so the chart matches published data.
+
+## Getting it on your phone for offline use
+
+There are two ways, depending on how much you want it to feel like a real app.
+
+### Installable app (recommended)
+
+`app/` is a Progressive Web App — a real home-screen icon, full screen, no browser
+chrome, and it keeps working with no signal because a service worker caches
+everything on first load.
+
+One-time setup, needs GitHub Pages switched on:
+
+1. On GitHub, go to the repo → **Settings → Pages**.
+2. Under **Build and deployment → Source** choose **Deploy from a branch**.
+3. Pick this branch (or `main` after merging) and folder **`/ (root)`**, then **Save**.
+4. Wait a minute, then open `https://<user>.github.io/BallisticApp/app/` on the phone.
+5. **iPhone:** Safari → Share → *Add to Home Screen*.
+   **Android:** Chrome → ⋮ → *Install app* / *Add to Home screen*.
+
+Open it once while you still have signal. After that it runs with the radio off.
+On iOS, installing to the home screen is what makes the cache stick — a page merely
+bookmarked in Safari can be evicted after about a week of disuse.
+
+### Single file, no setup
+
+`app/index.html` is completely self-contained. Save it to the phone (Files on iOS,
+Downloads on Android) and open it in the browser. Everything works offline, you just
+don't get the home-screen icon or full-screen chrome.
+
+### Keeping the two in sync
+
+`index.html` is the Artifact source and deliberately has no `<!doctype>`/`<head>`/
+`<body>` — the Artifact host supplies those. The phone build needs a complete
+document, so `build.py` wraps the same content and adds the manifest, icons, iOS meta
+tags and service-worker registration:
+
+```
+python3 build.py     # regenerates app/index.html from index.html
+```
+
+Run it after any edit to `index.html`. Bump `CACHE` in `app/sw.js` when you want
+installed phones to pick the new version up.
 
 ## The solver
 
@@ -41,6 +86,7 @@ applied as a launch-angle offset, which keeps the zero and range sliders instant
 | Density ratio at ICAO standard | 1.0000 |
 | Launch-angle offset vs. true re-integration at the zero angle, 5× finer step | exact to 0.000 in at 500 yd |
 | Vertical drag damping | mean k ≈ 0.72 /s; drop legitimately ~13% under vacuum 0.5gt² |
+| Offline operation | server killed and network cut: reloads, renders embedded fonts, and recomputes new loads with zero requests |
 
 ### Why the atmospherics were dropped
 
