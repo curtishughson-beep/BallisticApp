@@ -39,7 +39,14 @@ One-time setup, needs GitHub Pages switched on:
 1. On GitHub, go to the repo → **Settings → Pages**.
 2. Under **Build and deployment → Source** choose **Deploy from a branch**.
 3. Pick this branch (or `main` after merging) and folder **`/ (root)`**, then **Save**.
-4. Wait a minute, then open `https://<user>.github.io/BallisticApp/app/` on the phone.
+4. Wait a minute for the first build, then open the site on the phone:
+
+   **https://curtishughson-beep.github.io/BallisticApp/app/**
+
+   The path is **case-sensitive** — `BallisticApp` with both capitals. Lowercase
+   `ballisticapp` returns 404. Note it is the `/app/` folder, not the repo root:
+   the root serves the same calculator but without the manifest and service worker,
+   so it will not install or cache for offline use.
 5. **iPhone:** Safari → Share → *Add to Home Screen*.
    **Android:** Chrome → ⋮ → *Install app* / *Add to Home screen*.
 
